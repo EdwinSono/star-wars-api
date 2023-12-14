@@ -4,7 +4,24 @@ service: star-wars-api
 frameworkVersion: '3'
 
 custom:
-  tableName: 'users-table-${sls:stage}'
+  serverless-offline:
+    noPrependStageInUrl: true
+    useChildProcesses: false
+  tableName: 'people-table-${sls:stage}'
+  esbuild:
+    minify: true
+    external:
+      - aws-sdk
+    watch:
+      pattern: 'src/**/*.ts'
+      ignore: '.serverless/**/*'
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
 
 provider:
   name: aws
@@ -21,30 +38,31 @@ provider:
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
           Resource:
-            - Fn::GetAtt: [ UsersTable, Arn ]
+            - Fn::GetAtt: [ PeopleTable, Arn ]
   environment:
-    USERS_TABLE: ${self:custom.tableName}
+    PEOPLE_TABLE: ${self:custom.tableName}
 
 functions:
   api:
-    handler: index.handler
+    handler: src/index.handler
     events:
       - httpApi: '*'
 
 resources:
   Resources:
-    UsersTable:
+    PeopleTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: userId
+          - AttributeName: peopleId
             AttributeType: S
         KeySchema:
-          - AttributeName: userId
+          - AttributeName: peopleId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${self:custom.tableName}
 
 plugins:
+  - serverless-esbuild
   - serverless-offline
   - serverless-dynamodb
