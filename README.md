@@ -84,18 +84,23 @@ If you try to retrieve user that does not exist, you should receive the followin
 
 ### Local development
 
-It is also possible to emulate DynamoDB, API Gateway and Lambda locally using the `serverless-dynamodb-local` and `serverless-offline` plugins. In order to do that, run:
+It is also possible to emulate DynamoDB, API Gateway and Lambda locally using the `serverless-dynamodb` and `serverless-offline` plugins. In order to do that, run:
 
 ```bash
-serverless plugin install -n serverless-dynamodb-local
 serverless plugin install -n serverless-offline
+
+# serverless plugin install -n serverless-dynamodb
+# npm remove serverless-dynamodb-local
+
+npm install serverless-dynamodb
+sls offline start
 ```
 
 It will add both plugins to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`. Make sure that `serverless-offline` is listed as last plugin in `plugins` section:
 
 ```
 plugins:
-  - serverless-dynamodb-local
+  - serverless-dynamodb
   - serverless-offline
 ```
 
@@ -137,3 +142,10 @@ serverless offline start
 To learn more about the capabilities of `serverless-offline` and `serverless-dynamodb-local`, please refer to their corresponding GitHub repositories:
 - https://github.com/dherault/serverless-offline
 - https://github.com/99x/serverless-dynamodb-local
+
+
+### URL
+```sh
+
+https://ohcoyw4hca.execute-api.us-east-1.amazonaws.com/users
+```
