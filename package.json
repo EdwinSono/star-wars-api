@@ -4,10 +4,6 @@
   "description": "",
   "scripts": {
     "test": "echo \"No test specified\"",
-    "lambda:dev": "rimraf .build && serverless offline start --stage dev",
-    "lambda:stage": "rimraf .build && serverless offline start --stage stage",
-    "deploy:dev": "rimraf .serverless && serverless deploy --stage dev --verbose",
-    "deploy:stage": "rimraf .serverless && serverless deploy --stage dev --verbose",
     "format": "prettier --write \"src/**/**/*.ts\" \"test/**/**/*.ts\""
   },
   "author": "Edwin Sono",

@@ -4,21 +4,25 @@ export default class PeopleService {
   private Tablename: string = process.env.PEOPLE_TABLE || "people-table";
 
   constructor(private docClient: any) {
-    this.docClient = docClient
+    this.docClient = docClient;
   }
 
   async getAllPeople(): Promise<People[]> {
-    const people = await this.docClient.scan({
+    const people = await this.docClient
+      .scan({
         TableName: this.Tablename,
-    }).promise()
+      })
+      .promise();
     return people.Items as People[];
   }
 
   async createPeople(people: People): Promise<People> {
-    await this.docClient.put({
+    await this.docClient
+      .put({
         TableName: this.Tablename,
-        Item: people
-    }).promise()
+        Item: people,
+      })
+      .promise();
     return people as People;
   }
 
@@ -29,7 +33,7 @@ export default class PeopleService {
         peopleId: id,
       },
     };
-    const people = await this.docClient.get(params).promise()
+    const people = await this.docClient.get(params).promise();
     if (!people.Item) {
       return null;
     }
@@ -37,11 +41,13 @@ export default class PeopleService {
   }
 
   async deletePeople(id: string): Promise<any> {
-    return await this.docClient.delete({
+    return await this.docClient
+      .delete({
         TableName: this.Tablename,
         Key: {
-          peopleId: id
-        }
-    }).promise();
+          peopleId: id,
+        },
+      })
+      .promise();
   }
 }

@@ -1,5 +1,5 @@
-import express, { Request, Response, NextFunction, Router } from 'express';
-import { people } from './routes';
+import express, { Request, Response, NextFunction, Router } from "express";
+import { people } from "./routes";
 
 const api = express();
 
@@ -7,7 +7,7 @@ api.use(express.json());
 
 const app = express();
 
-api.use('/people', people);
+api.use("/people", people);
 
 api.use((req: Request, res: Response, next: NextFunction) => {
   return res.status(404).json({
@@ -19,4 +19,4 @@ api.use((err: any, req: Request, res: Response, next: NextFunction) => {
   res.status(err.status || 500).send();
 });
 
-export { api }
+export { api };

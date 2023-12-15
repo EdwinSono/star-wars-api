@@ -1,2 +1,2 @@
-import people from './people.route';
-export { people }
+import people from "./people.route";
+export { people };

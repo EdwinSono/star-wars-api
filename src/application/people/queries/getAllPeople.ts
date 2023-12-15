@@ -1,10 +1,10 @@
 // import { v4 } from "uuid";
-import {PeopleDTO} from "../../../domain/dtos/People.dto"
+import { PeopleDTO } from "../../../domain/dtos/People.dto";
 
 export default class GetAllPeople {
-  peopleService: any
-  constructor (peopleService: any) {
-    this.peopleService = peopleService
+  peopleService: any;
+  constructor(peopleService: any) {
+    this.peopleService = peopleService;
   }
 
   async execute(): Promise<PeopleDTO[]> {

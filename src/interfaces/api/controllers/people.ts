@@ -1,16 +1,16 @@
-import { Request, Response } from 'express';
-import { peopleService } from "../../../infrastructure/database/service"
-import SavePeople from "../../../application/people/commands/savePeople"
-import GetPeopleById from "../../../application/people/queries/getPeopleById"
-import GetAllPeople from "../../../application/people/queries/getAllPeople"
-import DeletePeopleById from "../../../application/people/commands/deletePeopleById"
-import {StarWarsAPI} from "../../../infrastructure/StarWarsAPI/"
+import { Request, Response } from "express";
+import { peopleService } from "../../../infrastructure/database/service";
+import SavePeople from "../../../application/people/commands/savePeople";
+import GetPeopleById from "../../../application/people/queries/getPeopleById";
+import GetAllPeople from "../../../application/people/queries/getAllPeople";
+import DeletePeopleById from "../../../application/people/commands/deletePeopleById";
+import { StarWarsAPI } from "../../../infrastructure/StarWarsAPI/";
 
 export const getPeopleById = async (req: Request, res: Response) => {
   try {
-    const {peopleId} = req.params
+    const { peopleId } = req.params;
     const getPeople = new GetPeopleById(peopleService);
-    const peopleGot = await getPeople.execute(peopleId)
+    const peopleGot = await getPeople.execute(peopleId);
     if (peopleGot) {
       const response = peopleGot;
       res.json(response);
@@ -23,7 +23,7 @@ export const getPeopleById = async (req: Request, res: Response) => {
     console.log(error.message);
     res.status(500).json({ error: "Could not retreive people" });
   }
-}
+};
 
 export const savePeople = async (req: Request, res: Response) => {
   const { peopleId } = req.body;
@@ -32,20 +32,20 @@ export const savePeople = async (req: Request, res: Response) => {
   }
 
   try {
-    const starWarsAPI = new StarWarsAPI()
+    const starWarsAPI = new StarWarsAPI();
     const savePeople = new SavePeople(peopleService, starWarsAPI);
-    const peopleSaved = await savePeople.execute({peopleId})
+    const peopleSaved = await savePeople.execute({ peopleId });
     res.json(peopleSaved);
   } catch (error: any) {
     console.log("savePeople error:", error.message);
     res.status(500).json({ error: error });
   }
-}
+};
 
 export const getAllPeople = async (req: Request, res: Response) => {
   try {
     const getPeople = new GetAllPeople(peopleService);
-    const peopleGot = await getPeople.execute()
+    const peopleGot = await getPeople.execute();
     if (peopleGot) {
       res.json(peopleGot);
     } else {
@@ -56,13 +56,13 @@ export const getAllPeople = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({ error: "Could not retreive people" });
   }
-}
+};
 
 export const deletePeopleById = async (req: Request, res: Response) => {
   try {
-    const {peopleId} = req.params
+    const { peopleId } = req.params;
     const deletePeople = new DeletePeopleById(peopleService);
-    const peopleGot = await deletePeople.execute(peopleId)
+    const peopleGot = await deletePeople.execute(peopleId);
     if (peopleGot) {
       const response = peopleGot;
       res.json(response);
@@ -75,4 +75,4 @@ export const deletePeopleById = async (req: Request, res: Response) => {
     console.log(error.message);
     res.status(500).json({ error: "Could not retreive people" });
   }
-}
+};
