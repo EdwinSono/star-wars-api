@@ -9,12 +9,15 @@ custom:
     useChildProcesses: false
   tableName: 'people-table-${sls:stage}'
   esbuild:
-    minify: true
-    external:
-      - aws-sdk
+    bundle: true  # Habilita el empaquetado
+    minify: true   # Minifica el código (opcional)
+    sourcemap: true  # Genera sourcemaps (opcional)
+    target: node18  # Versión de Node.js objetivo
+    exclude: []
     watch:
       pattern: 'src/**/*.ts'
       ignore: '.serverless/**/*'
+
   dynamodb:
     stages:
       - dev
@@ -47,6 +50,30 @@ functions:
     handler: src/index.handler
     events:
       - httpApi: '*'
+  # create-people:
+  #   handler: src/index.handler
+  #   events:
+  #     - http:
+  #         path: people
+  #         method: POST
+  # read-people:
+  #   handler: src/index.handler
+  #   events:
+  #     - http:
+  #         path: people/{peopleId}
+  #         method: GET
+  # read-all-people:
+  #   handler: src/index.handler
+  #   events:
+  #     - http:
+  #         path: people
+  #         method: GET
+  # delete-people:
+  #   handler: src/index.handler
+  #   events:
+  #     - http:
+  #         path: people/{peopleId}
+  #         method: DELETE
 
 resources:
   Resources:
