@@ -5,8 +5,6 @@ const api = express();
 
 api.use(express.json());
 
-const app = express();
-
 api.use("/people", people);
 
 api.use((req: Request, res: Response, next: NextFunction) => {

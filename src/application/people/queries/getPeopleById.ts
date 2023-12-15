@@ -8,6 +8,7 @@ export default class GetPeopleById {
 
   async execute(peopleId: string): Promise<PeopleDTO> {
     const people = await this.peopleService.getPeopleById(peopleId);
+    if (!people) throw new Error("peopleId does not exit");
     const peopleDTO = new PeopleDTO(people);
     return peopleDTO;
   }

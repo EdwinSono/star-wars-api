@@ -1,0 +1,352 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Swagger Star Wars API en Serverless - OpenAPI 3.0",
+		"description": "Integración de star wars API con DynamoDB, typescript en serverless framework.",
+		"contact": {
+			"email": "edwinsono@gmail.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		},
+		"version": "1.0.11"
+	},
+	"externalDocs": {
+		"description": "Find out more about Swagger",
+		"url": "http://swagger.io"
+	},
+	"servers": [
+		{
+			"url": "https://petstore3.swagger.io/api/v3"
+		}
+	],
+	"tags": [
+		{
+			"name": "people",
+			"description": "Todo sobre los personajes de Star Wars"
+		}
+	],
+	"paths": {
+		"/people": {
+			"post": {
+				"tags": [
+					"people"
+				],
+				"summary": "Add a new people",
+				"description": "Add a new people",
+				"operationId": "addPeople",
+				"requestBody": {
+					"description": "Create a new people",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/People"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PeopleCreate"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Error interno en el sistema"
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"people"
+				],
+				"summary": "get all people",
+				"description": "Get all people",
+				"operationId": "getPeople",
+				"responses": {
+					"200": {
+						"description": "Successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PeopleAPI"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Error interno en el sistema"
+					}
+				}
+			}
+		},
+		"/people/{peopleId}": {
+			"get": {
+				"tags": [
+					"people"
+				],
+				"summary": "Find people by ID",
+				"description": "Returns a single people",
+				"operationId": "getPeopleById",
+				"parameters": [
+					{
+						"name": "peopleId",
+						"in": "path",
+						"description": "ID of people to return",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "successful operation",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/PeopleDTO"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid ID people"
+					},
+					"404": {
+						"description": "People not found"
+					}
+				}
+			},
+			"delete": {
+				"tags": [
+					"people"
+				],
+				"summary": "Deletes a people",
+				"description": "delete a people",
+				"operationId": "deletePeopleById",
+				"parameters": [
+					{
+						"name": "peopleId",
+						"in": "path",
+						"description": "People id to delete",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
+				"responses": {
+					"400": {
+						"description": "Invalid people value"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"People": {
+				"type": "object",
+				"properties": {
+					"peopleId": {
+						"type": "integer",
+						"description": "People id",
+						"format": "int32",
+						"example": 1
+					}
+				}
+			},
+			"PeopleCreate": {
+				"type": "object",
+				"properties": {
+					"peopleId": {
+						"type": "integer",
+						"description": "People id",
+						"format": "int32",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"description": "Name",
+						"example": "Luke Skywalker"
+					}
+				}
+			},
+			"PeopleAPI": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "Name",
+						"example": "Luke Skywalker"
+					},
+					"height": {
+						"type": "string",
+						"description": "height",
+						"example": "172"
+					}
+				}
+			},
+			"PeopleDTO": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"description": "People id",
+						"format": "int32",
+						"example": 1
+					},
+					"nombre": {
+						"type": "string",
+						"description": "Nombre",
+						"example": "Luke Skywalker"
+					},
+					"altura": {
+						"type": "string",
+						"description": "Altura",
+						"example": "172"
+					},
+					"masa": {
+						"type": "string",
+						"description": "Masa",
+						"example": "77"
+					},
+					"color_pelo": {
+						"type": "string",
+						"description": "color de pelo",
+						"example": "blond"
+					},
+					"color_piel": {
+						"type": "string",
+						"description": "color de piel",
+						"example": "fair"
+					},
+					"color_ojos": {
+						"type": "string",
+						"description": "color de ojos",
+						"example": "blue"
+					},
+					"ano_nacimiento": {
+						"type": "string",
+						"description": "año nacimiento",
+						"example": "19BBY"
+					},
+					"genero": {
+						"type": "string",
+						"description": "genero",
+						"example": "male"
+					},
+					"mundo": {
+						"type": "string",
+						"description": "mundo",
+						"example": "https://swapi.dev/api/planets/1/"
+					},
+					"peliculas": {
+						"type": "array",
+						"description": "color de pelo",
+						"items": {},
+						"example": [
+							"https://swapi.dev/api/films/1/",
+							"https://swapi.dev/api/films/2/",
+							"https://swapi.dev/api/films/3/",
+							"https://swapi.dev/api/films/6/"
+						]
+					},
+					"especies": {
+						"type": "array",
+						"items": {},
+						"description": "especies",
+						"example": []
+					},
+					"creado": {
+						"type": "string",
+						"description": "creado",
+						"example": "2014-12-09T13:50:51.644000Z"
+					},
+					"editado": {
+						"type": "string",
+						"description": "editado",
+						"example": "2014-12-20T21:17:56.891000Z"
+					},
+					"vehiculos": {
+						"type": "array",
+						"items": {},
+						"description": "vehiculos",
+						"example": [
+							"https://swapi.dev/api/vehicles/14/",
+							"https://swapi.dev/api/vehicles/30/"
+						]
+					},
+					"naves": {
+						"type": "string",
+						"description": "naves",
+						"example": [
+							"https://swapi.dev/api/starships/12/",
+							"https://swapi.dev/api/starships/22/"
+						]
+					},
+					"enlace": {
+						"type": "string",
+						"description": "enlace",
+						"example": "https://swapi.dev/api/people/1/"
+					}
+				}
+			},
+			"ApiResponse": {
+				"type": "object",
+				"properties": {
+					"code": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"type": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"requestBodies": {
+			"People": {
+				"description": "Objeto persona que debe añadirse",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "#/components/schemas/People"
+						}
+					},
+					"application/xml": {
+						"schema": {
+							"$ref": "#/components/schemas/People"
+						}
+					}
+				}
+			},
+			"PeopleArray": {
+				"description": "List of user object",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "#/components/schemas/People"
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
