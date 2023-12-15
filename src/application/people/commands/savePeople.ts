@@ -1,5 +1,4 @@
-import { People } from "../../../domain/entities/People.entity";
-
+import { People } from "../../../domain/entities/People";
 export default class SavePeople {
   peopleService: any;
   starWarsAPI: any;
