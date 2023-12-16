@@ -48,15 +48,8 @@
 					"required": true
 				},
 				"responses": {
-					"200": {
-						"description": "Successful operation",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/PeopleCreate"
-								}
-							}
-						}
+					"201": {
+						"description": "Successful operation"
 					},
 					"500": {
 						"description": "Error interno en el sistema"
@@ -163,22 +156,6 @@
 						"description": "People id",
 						"format": "int32",
 						"example": 1
-					}
-				}
-			},
-			"PeopleCreate": {
-				"type": "object",
-				"properties": {
-					"peopleId": {
-						"type": "integer",
-						"description": "People id",
-						"format": "int32",
-						"example": 1
-					},
-					"name": {
-						"type": "string",
-						"description": "Name",
-						"example": "Luke Skywalker"
 					}
 				}
 			},

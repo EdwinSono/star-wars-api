@@ -35,7 +35,7 @@ export const savePeople = async (req: Request, res: Response) => {
     const starWarsAPI = new StarWarsAPI();
     const savePeople = new SavePeople(peopleService, starWarsAPI);
     const peopleSaved = await savePeople.execute({ peopleId });
-    res.json(peopleSaved);
+    res.status(201).end()
   } catch (error: any) {
     console.log("savePeople error:", error.message);
     res.status(500).json({ error: error });
