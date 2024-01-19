@@ -4,7 +4,9 @@ import { people } from "./routes";
 const api = express();
 
 api.use(express.json());
-
+api.use("/", (req: Request, res: Response, next: NextFunction) => {
+  return res.status(200).send('API REST: Star wars');
+});
 api.use("/people", people);
 
 api.use((req: Request, res: Response, next: NextFunction) => {
